@@ -1,0 +1,154 @@
+{
+  "learning_rate_style": "exp",
+  "learning_decay_rate": 0.9999,
+
+  "map_encoder": {
+    "VEHICLE": {
+      "patch_size": 100,
+      "map_channels": 3,
+      "hidden_channels": [10, 20, 10, 1],
+      "output_size": 32,
+      "masks": [5, 5, 5, 3],
+      "strides": [2, 2, 1, 1],
+      "dropout": 0.5
+    },
+    "BICYCLE": {
+      "patch_size": 100,
+      "map_channels": 3,
+      "hidden_channels": [10, 20, 10, 1],
+      "output_size": 32,
+      "masks": [5, 5, 5, 3],
+      "strides": [2, 2, 1, 1],
+      "dropout": 0.5
+    },
+    "MOTORCYCLE": {
+      "patch_size": 100,
+      "map_channels": 3,
+      "hidden_channels": [10, 20, 10, 1],
+      "output_size": 32,
+      "masks": [5, 5, 5, 3],
+      "strides": [2, 2, 1, 1],
+      "dropout": 0.5
+    },
+    "PEDESTRIAN": {
+      "patch_size": 100,
+      "map_channels": 3,
+      "hidden_channels": [10, 20, 10, 1],
+      "output_size": 32,
+      "masks": [5, 5, 5, 5],
+      "strides": [1, 1, 1, 1],
+      "dropout": 0.5
+    }
+  },
+
+  "kl_min": 0.07,
+  "kl_weight": 100.0,
+  "kl_weight_start": 0,
+  "kl_decay_rate": 0.99995,
+  "kl_crossover": 400,
+  "kl_sigmoid_divisor": 4,
+
+  "rnn_kwargs": {
+    "dropout_keep_prob": 0.75
+  },
+  "MLP_dropout_keep_prob": 0.9,
+  "enc_rnn_dim_edge": 32,
+  "enc_rnn_dim_edge_influence": 32,
+  "enc_rnn_dim_history": 32,
+  "enc_rnn_dim_future": 32,
+  "dec_rnn_dim": 128,
+
+  "q_z_xy_MLP_dims": 0,
+  "p_z_x_MLP_dims": 32,
+  "GMM_components": 1,
+
+  "log_p_yt_xz_max": 6,
+
+  "K": 25,
+  "k": 1,
+  "N": 1,
+
+  "plan_agent_choice": "most_relevant",
+  "plan_lqr_max_iters": 5,
+  "plan_lqr_max_linesearch_iters": 5,
+  "dt": 0.5,
+  
+  "filter_plan_valid": true,
+  "filter_pred_not_parked": true,
+  "filter_pred_near_ego": false,
+  "filter_plan_converged": false,
+  "filter_plan_relevant": false,
+  "filter_lane_near": false,
+
+  "tau_init": 2.0,
+  "tau_final": 0.05,
+  "tau_decay_rate": 0.997,
+
+  "use_z_logit_clipping": true,
+  "z_logit_clip_start": 0.05,
+  "z_logit_clip_final": 5.0,
+  "z_logit_clip_crossover": 300,
+  "z_logit_clip_divisor": 5,
+
+  "dynamic": {
+    "PEDESTRIAN": {
+      "name": "SingleIntegrator",
+      "distribution": true,
+      "limits": {}
+    },
+    "VEHICLE": {
+      "name": "Unicycle",
+      "distribution": true,
+      "limits": {
+          "max_a": 4,
+          "min_a": -5,
+          "max_heading_change": 0.7,
+          "min_heading_change": -0.7
+        }
+    },
+    "BICYCLE": {
+      "name": "Unicycle",
+      "distribution": true,
+      "limits": {
+          "max_a": 4,
+          "min_a": -5,
+          "max_heading_change": 0.7,
+          "min_heading_change": -0.7
+        }
+    },
+    "MOTORCYCLE": {
+      "name": "Unicycle",
+      "distribution": true,
+      "limits": {
+          "max_a": 4,
+          "min_a": -5,
+          "max_heading_change": 0.7,
+          "min_heading_change": -0.7
+        }
+    }
+  },
+
+  "state": {
+    "PEDESTRIAN": {
+      "position": ["x", "y"],
+      "velocity": ["x", "y"],
+      "acceleration": ["x", "y"],
+      "augment": ["ego_indicator"]      
+    },
+    "VEHICLE": {
+      "position": ["x", "y"],
+      "velocity": ["x", "y"],
+      "acceleration": ["x", "y"],
+      "heading": ["°", "d°"],
+      "augment": ["ego_indicator"]      
+    }
+  },
+
+  "pred_state": {
+    "VEHICLE": {
+      "position": ["x", "y"]
+    }
+  },
+
+  "plan_node_types": ["VEHICLE"]
+}

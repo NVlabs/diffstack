@@ -1,0 +1,72 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Train new DiffStack model from trajdata (recommended)",
+            "type": "python",
+            "request": "launch",
+            //"module": "torch.distributed.run",
+            "program": "./diffstack/train.py",
+            "console": "integratedTerminal",
+            "env": {"PYDEVD_WARN_EVALUATION_TIMEOUT": "15"},
+            "args": [
+                "--conf=./config/diffstack_default.json",
+                "--data_loc_dict={\"nusc_mini\": \"~/data/nuscenes_raw_annot\"}",
+                "--train_data=nusc_mini-mini_val",
+                "--eval_data=nusc_mini-mini_val",
+                "--predictor=tpp",
+                "--plan_cost=corl_default_angle_fix",
+                "--plan_loss_scaler=100",
+                "--plan_loss_scaler2=10",
+                "--device=cuda:0",
+                "--debug",
+            ],
+        },                      
+        {
+            "name": "Load pretrained model, cached data.",
+            "type": "python",
+            "request": "launch",
+            "module": "torch.distributed.run",
+            "console": "integratedTerminal",
+            "env": {"PYDEVD_WARN_EVALUATION_TIMEOUT": "15"},
+            "args": [
+                "--nproc_per_node=1",
+                "./diffstack/train.py",
+                "--data_source=cache",
+                "--cached_data_dir=~/data/corl22_public",
+                "--train_data=nusc_mini-mini_train",
+                "--eval_data=nusc_mini-mini_val",
+                "--predictor=tpp_cache",
+                "--dynamic_edges=yes",
+                "--plan_cost=corl_default",
+                "--eval_batch_size=32",
+                "--load=~/data/corl22_public/diffstack_rl.pt",
+                "--debug",                
+            ],
+        },
+                     
+        {
+            "name": "Train model on preprocessed cache data.",
+            "type": "python",
+            "request": "launch",
+            "module": "torch.distributed.run",
+            "console": "integratedTerminal",
+            "env": {"PYDEVD_WARN_EVALUATION_TIMEOUT": "15"},
+            "args": [
+                "--nproc_per_node=1",
+                "./diffstack/train.py",
+                "--data_source=cache",
+                "--cached_data_dir=~/data/corl22_public",
+                "--train_data=nusc_mini-mini_train",
+                "--eval_data=nusc_mini-mini_val",
+                "--predictor=tpp_cache",
+                "--dynamic_edges=yes",
+                "--plan_cost=corl_default",
+                "--device=cuda:0",
+            ],
+        },
+    ]
+}

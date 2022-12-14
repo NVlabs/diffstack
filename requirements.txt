@@ -1,0 +1,11 @@
+torch==1.12.1
+numpy
+scipy
+dill
+pathos==0.2.9
+orjson==3.5.1
+ncls==0.0.57
+wandb
+imageio==2.9.0
+tqdm
+matplotlib
