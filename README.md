@@ -73,7 +73,7 @@ python -m torch.distributed.run --nproc_per_node=1 ./diffstack/train.py \
 
 ### Reproducing published results
 
-To reporduce results you will need to download our preprocessed dataset ([nuScenes-minival](https://drive.google.com/drive/folders/1jhxNQMWCkVpdDUhAuvYZ2rihT67j77o0?usp=share_link), [nuScenes-full](https://drive.google.com/drive/folders/1xq7OJG5k796_SFsb6j6g7O2e5kc85z51?usp=share_link)) and optionally the pretrained models ([checkpoints](https://drive.google.com/drive/folders/18X4i_gsj72kBkpMGT6Psp3svaqR6yU8d?usp=sharing)). Please only use this dataset and the pretrained model if you have registered and agreed to the terms for non-commercial use on [https://www.nuscenes.org/nuscenes](https://www.nuscenes.org/nuscenes).
+To reporduce results you will need to download our preprocessed dataset ([nuScenes-minival](https://drive.google.com/drive/folders/1jhxNQMWCkVpdDUhAuvYZ2rihT67j77o0?usp=share_link), [nuScenes-full](https://drive.google.com/drive/folders/1xq7OJG5k796_SFsb6j6g7O2e5kc85z51?usp=share_link)) and optionally the pretrained models ([checkpoints](https://drive.google.com/drive/folders/18X4i_gsj72kBkpMGT6Psp3svaqR6yU8d?usp=sharing)). Please only use the dataset and models if you have agreed to the terms for non-commercial use on [https://www.nuscenes.org/nuscenes](https://www.nuscenes.org/nuscenes). The preprocessed dataset and pretrained models are under the [CC BY-NC-SA 4.0 licence](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode). 
 
 Evaluate a pretrained DiffStack model with jointly trained prediction-planning-control modules on the nuscenes minival dataset. Remember to update the path to the downloaded data and models. Use the full validation set to reproduce results in the paper.
 
@@ -137,3 +137,7 @@ python -m torch.distributed.run --nproc_per_node=1 ./diffstack/train.py \
                 --plan_loss_scaler=0 
                 --device=cuda:0
 ```
+
+## Licence
+
+The source code is released under the [NSCL licence](https://github.com/NVlabs/diffstack/blob/main/LICENSE.txt). The preprocessed dataset and pretrained models are under the [CC BY-NC-SA 4.0 licence](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
