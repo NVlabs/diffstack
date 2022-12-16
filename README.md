@@ -34,11 +34,8 @@ cd diffstack
 pip install -e ./
 ```
 
-Additionally, install the [unified trajectory data loader](https://github.com/NVlabs/trajdata) for NuScenes data. Please use the slightly modified variant of the library located at `./trajdata/`.
+This single step is sufficient to install all dependencies. For active development, you may prefer to clone and install [Trajectron++](https://github.com/StanfordASL/Trajectron-plus-plu), [Differentiable MPC](https://github.com/locuslab/mpc.pytorch), and [Unified Trajctory Data Loader](https://github.com/NVlabs/trajdata) manually.
 
-```bash
-pip install -e "./trajdata[nusc]"
-```
 
 ### Prepare data
 
