@@ -13,7 +13,7 @@ objective, allowing upstream predictions to be optimized with respect to downstr
 
 **Disclaimer** this code if for research purpose only. This is only an alpha release, not product quality code. Expect some rough edges and sparse documentation.
 
-**Credits:** the code is built on [Trajectron++](https://github.com/StanfordASL/Trajectron-plus-plu), [Differentiable MPC](https://github.com/locuslab/mpc.pytorch), [Unified Trajctory Data Loader](https://github.com/NVlabs/trajdata), and we utilize several other standard libraries.
+**Credits:** the code is built on [Trajectron++](https://github.com/StanfordASL/Trajectron-plus-plus), [Differentiable MPC](https://github.com/locuslab/mpc.pytorch), [Unified Trajctory Data Loader](https://github.com/NVlabs/trajdata), and we utilize several other standard libraries.
 
 ## Setup
 
