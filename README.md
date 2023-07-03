@@ -11,7 +11,7 @@ DiffStack is comprised of differentiable modules for prediction, planning, and c
 Importantly, this means that gradients can propagate backwards all the way from the final planning
 objective, allowing upstream predictions to be optimized with respect to downstream decision making.
 
-**Disclaimer** this code if for research purpose only. This is only an alpha release, not product quality code. Expect some rough edges and sparse documentation.
+**Disclaimer** this code is for research purpose only. This is only an alpha release, not product quality code. Expect some rough edges and sparse documentation.
 
 **Credits:** the code is built on [Trajectron++](https://github.com/StanfordASL/Trajectron-plus-plus), [Differentiable MPC](https://github.com/locuslab/mpc.pytorch), [Unified Trajctory Data Loader](https://github.com/NVlabs/trajdata), and we utilize several other standard libraries.
 
