@@ -1,0 +1,77 @@
+{
+
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "PL train CTT",
+            "type": "python",
+            "request": "launch",
+            "program": "diffstack/scripts/train_pl.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--config_file=${workspaceFolder}/config/templates/CTTPredStack.json", 
+                "--remove_exp_dir", 
+                // "--debug",
+                "--dataset_path=<your dataset path>",
+            ]
+        }, 
+        {
+            "name": "PL train agentformer",
+            "type": "python",
+            "request": "launch",
+            "program": "diffstack/scripts/train_pl.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}${pathSeparator}${env:PYTHONPATH}",
+            },
+            "args": [
+                "--config_file=${workspaceFolder}/config/templates/AFPredStack.json",  
+                "--remove_exp_dir", 
+                // "--debug",
+                "--dataset_path=<your dataset path, e.g. path to nuscenes data>",
+            ]
+        },
+        {
+            "name": "PL eval CTT",
+            "type": "python",
+            "request": "launch",
+            "program": "diffstack/scripts/train_pl.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--config_file=<your config file>",
+                "--ckpt_path=<your checkpoint path>",
+                "--test_data=<data split for evaluation, e.g. val>",
+                "--test_data_root=<eval data root, e.g. nusc_trainval>",
+                "--evaluate",
+                "--log_image_frequency=10",
+                "--eval_output_dir=<a directory to save evaluation results>",
+                "--test_batch_size=16",
+                // "--log_all_image",
+                "--dataset_path=<your dataset path>", 
+            ]
+        }, 
+        {
+            "name": "PL eval agentformer",
+            "type": "python",
+            "request": "launch",
+            "program": "diffstack/scripts/train_pl.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--config_file=<your config file>",
+                "--ckpt_path=<your checkpoint path>",
+                "--test_data=<data split for evaluation, e.g. val>",
+                "--test_data_root=<eval data root, e.g. nusc_trainval>",
+                "--evaluate",
+                "--log_image_frequency=10",
+                "--eval_output_dir=<a directory to save evaluation results>",
+                "--test_batch_size=16",
+                // "--log_all_image",
+                "--dataset_path=<your dataset path>", 
+            ]
+        }
+    ]
+}

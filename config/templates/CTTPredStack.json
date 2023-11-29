@@ -1,0 +1,230 @@
+{
+    "registered_name": "CTTPredStack",
+    "train": {
+        "logging": {
+            "terminal_output_to_txt": true,
+            "log_tb": false,
+            "log_wandb": true,
+            "wandb_project_name": "diffstack",
+            "log_every_n_steps": 10,
+            "flush_every_n_steps": 100
+        },
+        "save": {
+            "enabled": true,
+            "every_n_steps": 1000,
+            "best_k": 10,
+            "save_best_rollout": false,
+            "save_best_validation": true
+        },
+        "rollout": {
+            "save_video": true,
+            "enabled": false,
+            "every_n_steps": 5000,
+            "warm_start_n_steps": 1
+        },
+        "training": {
+            "batch_size": 2,
+            "num_steps": 200000,
+            "num_data_workers": 8
+        },
+        "validation": {
+            "enabled": true,
+            "batch_size": 2,
+            "num_data_workers": 6,
+            "every_n_steps": 500,
+            "num_steps_per_epoch": 50
+        },
+        "parallel_strategy": "ddp",
+        "rebuild_cache": false,
+        "on_ngc": false,
+        "amp": false,
+        "auto_batch_size": false,
+        "max_batch_size": 1000,
+        "gradient_clip_val": 0.5,
+        "trajdata_source_train": "train",
+        "trajdata_source_valid": "val",
+        "trajdata_source_test": null,
+        "trajdata_source_root": "nusc_trainval",
+        "trajdata_val_source_root": null,
+        "trajdata_test_source_root": null,
+        "dataset_path": "SET-THIS-THROUGH-TRAIN-SCRIPT-ARGS",
+        "datamodule_class": "UnifiedDataModule",
+        "ego_only": true,
+        "test": {
+            "enabled": false,
+            "batch_size": 32,
+            "num_data_workers": 6,
+            "every_n_steps": 500,
+            "num_steps_per_epoch": 50
+        }
+    },
+    "env": {
+        "name": "nusc_trainval",
+        "rasterizer": {
+            "raster_size": 224,
+            "pixel_size": 0.5,
+            "ego_center": [
+                -0.75,
+                0.0
+            ]
+        },
+        "data_generation_params": {
+            "other_agents_num": 10,
+            "max_agents_distance": 30,
+            "yaw_correction_speed": 1.0
+        },
+        "simulation": {
+            "distance_th_close": 30,
+            "num_simulation_steps": 50,
+            "start_frame_index": 0,
+            "vectorize_lane": "ego"
+        },
+        "incl_neighbor_map": false,
+        "incl_vector_map": true,
+        "incl_raster_map": false,
+        "remove_single_successor": false,
+        "calc_lane_graph": true,
+        "max_num_lanes": 15,
+        "num_lane_pts": 30,
+        "remove_parked": false
+    },
+    "stack": {
+        "predictor": {
+            "name": "CTT",
+            "step_time": 0.25,
+            "history_num_frames": 4,
+            "future_num_frames": 12,
+            "n_embd": 256,
+            "n_head": 8,
+            "use_rpe_net": true,
+            "PE_mode": "RPE",
+            "enc_nblock": 3,
+            "dec_nblock": 3,
+            "encoder": {
+                "attn_pdrop": 0.05,
+                "resid_pdrop": 0.05,
+                "pooling": "attn",
+                "edge_scale": 20,
+                "edge_clip": [
+                    -4,
+                    4
+                ],
+                "mode_embed_dim": 64,
+                "jm_GNN_nblock": 2,
+                "num_joint_samples": 30,
+                "num_joint_factors": 6,
+                "null_lane_mode": true
+            },
+            "edge_dim": {
+                "a2a": 14,
+                "a2l": 12,
+                "l2a": 12,
+                "l2l": 16
+            },
+            "a2l_edge_type": "attn",
+            "a2l_n_embd": 64,
+            "attn_ntype": {
+                "a2a": 2,
+                "a2l": 1,
+                "l2l": 2
+            },
+            "lane_GNN_num_layers": 4,
+            "homotpy_GNN_num_layers": 4,
+            "hist_lane_relation": "LaneRelation",
+            "fut_lane_relation": "SimpleLaneRelation",
+            "classify_a2l_4all_lanes": false,
+            "closed_loop": false,
+            "CL_Tf_mode": 6,
+            "CL_step": 2,
+            "decoder": {
+                "arch": "mlp",
+                "lstm_hidden_size": 128,
+                "mlp_hidden_dims": [
+                    128,
+                    256
+                ],
+                "traj_dim": 4,
+                "num_layers": 2,
+                "dyn": {
+                    "vehicle": "unicycle",
+                    "pedestrian": "DI_unicycle"
+                },
+                "attn_pdrop": 0.05,
+                "resid_pdrop": 0.05,
+                "pooling": "attn",
+                "decode_num_modes": 5,
+                "AR_step_size": 1,
+                "GNN_enabled": false,
+                "AR_update_mode": null,
+                "dec_rounds": 5
+            },
+            "num_lane_pts": 30,
+            "loss_weights": {
+                "marginal_lm_loss": 5.0,
+                "marginal_homo_loss": 5.0,
+                "joint_prob_loss": 5.0,
+                "xy_loss": 4.0,
+                "yaw_loss": 1.0,
+                "lm_consistency_loss": 5.0,
+                "homotopy_consistency_loss": 5.0,
+                "yaw_dev_loss": 30.0,
+                "y_dev_loss": 5.0,
+                "l2_reg": 0.1,
+                "coll_loss": 0.1,
+                "acce_reg_loss": 0.04,
+                "steering_reg_loss": 0.1,
+                "input_violation_loss": 20.0,
+                "jerk_loss": 0.05
+            },
+            "loss": {
+                "lm_margin_offset": 0.2
+            },
+            "weighted_consistency_loss": false,
+            "LR_sample_hack": true,
+            "scene_centric": true,
+            "max_joint_cardinality": 5,
+            "optim_params": {
+                "policy": {
+                    "learning_rate": {
+                        "initial": 0.0001,
+                        "decay_factor": 0.1,
+                        "epoch_schedule": []
+                    },
+                    "regularization": {
+                        "L2": 0.0
+                    }
+                }
+            }
+        },
+        "stack_type": "pred"
+    },
+    "eval": {
+        "name": null,
+        "env": "nusc",
+        "dataset_path": null,
+        "eval_class": "",
+        "seed": 0,
+        "ckpt_root_dir": "checkpoints/",
+        "ckpt": {
+            "dir": null,
+            "ngc_job_id": null,
+            "ckpt_dir": null,
+            "ckpt_key": null
+        },
+        "eval": {
+            "batch_size": 100,
+            "num_steps": null,
+            "num_data_workers": 8
+        },
+        "log_image_frequency": null,
+        "log_all_image": false,
+        "trajdata_source_root": "nusc_trainval",
+        "trajdata_source_eval": "val"
+    },
+    "name": "test",
+    "root_dir": "predictor_CTT_trained_models/",
+    "seed": 1,
+    "devices": {
+        "num_gpus": 1
+    }
+}
