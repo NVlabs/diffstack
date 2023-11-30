@@ -30,7 +30,6 @@ Then add Pplan
 
 ```
 git clone --recurse-submodules git@github.com:NVlabs/spline-planner.git
-
 ```
 
 You can also sync submodules later using
@@ -70,8 +69,10 @@ These additional steps might be necessary
 # need to reinstall pathos, gets replaced by multiprocessing install 
 pip uninstall pathos -y
 pip install pathos==0.2.9
+```
 
-# Sometimes you need to reinstall matplotlib with the correct version 
+
+Sometimes you need to reinstall matplotlib with the correct version 
 
 ```
 pip install matplotlib==3.3.4
