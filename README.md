@@ -64,30 +64,50 @@ pip install -e ./trajdata
 pip install -e ./spline-planner
 ```
 
+
+
 These additional steps might be necessary
 ```
 # need to reinstall pathos, gets replaced by multiprocessing install 
 pip uninstall pathos -y
 pip install pathos==0.2.9
-```
 
-
-Sometimes you need to reinstall matplotlib with the correct version 
-
-```
-pip install matplotlib==3.3.4
-```
+# Gpu affinity for cpu-gpu assignments on NGC (optional)
+pip install git+https://gitlab-master.nvidia.com/dl/gwe/gpu_affinity
 
 # On Mac sometimes we need to reinstall torch
 conda install pytorch torchvision torchaudio -c pytorch
 
+# The default requirements installs jax for cpu only. To enable jax with GPU, see https://github.com/google/jax#installation
 
+# networkx package is not well aligned between py3.8 and py3.9, if you encounter an error for unknown module of gcd in fraction, manually modify that line of code for networkx. It should be located in the site-package/networkx/algorithms/dag.py:23
+# from fractions import gcd
+from math import gcd
+
+# The version of numpy might be messed by merging diffstack + mm3d, try restore numpy version for mm3d if the test script does not work after install diffstack requirements
+pip uninstall numpy
+pip install numpy==1.23.5
+
+# The version of bokeh might be messed if you see errors for 'module not found' when using nuplan, update bokeh version to bokeh==2.4.3
+pip install bokeh==2.4.3
+
+pip uninstall pygeos
+
+# To parse CARLA OpenDrive maps manually install extra trajdata dependencties (can be removed once trajdata is updated)
+pip install intervaltree bokeh==2.4.3 geopandas selenium
+pip install -e ./trajdata/src/trajdata/dataset_specific/opendrive/custom_imap
 
 # Fix opencv compatibility issue https://github.com/opencv/opencv-python/issues/591
 pip uninstall opencv-python opencv-python-headless -y
 pip install "opencv-python-headless==4.2.0.34"
 # pip install "opencv-python-headless==4.7.0.72" # for python 3.9
+
+# Sometimes you need to reinstall matplotlib with the correct version 
+
+pip install matplotlib==3.3.4
+
 ```
+
 
 ### Data
 
