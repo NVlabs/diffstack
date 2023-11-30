@@ -122,6 +122,8 @@ python diffstack/scripts/generate_config_templates.py
 
 ## Training and eval
 
+The following examples use nuScenes trainval as dataset, you'll need to prepare the nuScenes dataset following instructions in [trajdata](https://github.com/NVlabs/trajdata).
+
 Training script:
 
 ```
