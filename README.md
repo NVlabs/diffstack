@@ -152,7 +152,7 @@ Training and eval example commands are also included in the `.vscode/launch.json
 
 ## Trained models
 
-| Training dataset | dt    | Th   | Tf | config | checkpoint |
+| Training dataset | Step time    | History horizon   | Future horizon | config | checkpoint |
 |------------------|-------|------|----|--------|------------|
 | nuScenes         | 0.25s | 1.5s | 3s | [config](https://drive.google.com/file/d/1fnPX0o2qPVGszFxbYX_LDSYJ221IUFk7/view?usp=drive_link)       | [ckpt](https://drive.google.com/file/d/1KvTdJQIEtk50cwiUzMFdl-ZtxpKg52kK/view?usp=drive_link)           |
 | nuPlan           | 0.25s | 1.5s | 3s |[config](https://drive.google.com/file/d/1huNKKlTeT_i3oMOgPL6L1iUT2hKouKtt/view?usp=drive_link)        |[ckpt](https://drive.google.com/file/d/1w66sf6sTaoLI-Rl6MFHpuegu0y-i5R0y/view?usp=drive_link)            |
