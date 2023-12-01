@@ -2,7 +2,7 @@
 
 Impements Categorical Traffic Transformer in the environment of diffstack.
 
-Paper [pdf](link)
+Paper [pdf](https://arxiv.org/abs/2311.18307)
 
 ## Setup 
 
@@ -150,4 +150,10 @@ python diffstack/scripts/train_pl.py
 
 Training and eval example commands are also included in the `.vscode/launch.json` file.
 
+## Trained models
 
+| Training dataset | dt    | Th   | Tf | config | checkpoint |
+|------------------|-------|------|----|--------|------------|
+| nuScenes         | 0.25s | 1.5s | 3s | [config](https://drive.google.com/file/d/1fnPX0o2qPVGszFxbYX_LDSYJ221IUFk7/view?usp=drive_link)       | [ckpt](https://drive.google.com/file/d/1KvTdJQIEtk50cwiUzMFdl-ZtxpKg52kK/view?usp=drive_link)           |
+| nuPlan           | 0.25s | 1.5s | 3s |[config](https://drive.google.com/file/d/1huNKKlTeT_i3oMOgPL6L1iUT2hKouKtt/view?usp=drive_link)        |[ckpt](https://drive.google.com/file/d/1w66sf6sTaoLI-Rl6MFHpuegu0y-i5R0y/view?usp=drive_link)            |
+| WOMD             | 0.2s  | 1s   | 8s | [config](https://drive.google.com/file/d/1QgsHm3UhY74245YbhsQ4GlTyxyOBpE5y/view?usp=drive_link)       | [ckpt](https://drive.google.com/file/d/1qClV16V8jlSMMuPoAavFQeF7qJlb71GV/view?usp=drive_link)           |
