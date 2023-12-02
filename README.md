@@ -74,19 +74,17 @@ These additional steps might be necessary
 pip uninstall pathos -y
 pip install pathos==0.2.9
 
-
 # Fix opencv compatibility issue https://github.com/opencv/opencv-python/issues/591
 pip uninstall opencv-python opencv-python-headless -y
 pip install "opencv-python-headless==4.2.0.34"
 # pip install "opencv-python-headless==4.7.0.72" # for python 3.9
 
 # Sometimes you need to reinstall matplotlib with the correct version 
-
 pip install matplotlib==3.3.4
 
 ```
 
-### Key files and code structure
+## Key files and code structure
 
 Diffstack uses a similar config system as [TBSIM](https://github.com/NVlabs/traffic-behavior-simulation), where the config templates are first defined in python inside the [diffstack/configs](/diffstack/configs/) folder. We separate the configs for [data](/diffstack/configs/trajdata_config.py), [training](/diffstack/configs/base.py), and [models](/diffstack/configs/algo_config.py).
 
@@ -102,16 +100,10 @@ The main files of CTT to look for is the [model file](/diffstack/models/CTT.py),
 
 We also included a rich collection of [utils functions](/diffstack/utils/), among which many are not used by CTT, but we believe they contribute to creating a convenient code base.
 
-### Data
+## Data
 
 CTT uses [trajdata](https://github.com/NVlabs/trajdata) as the dataloader, technically, you can train with any dataset supported by trajdata. Considering the vectorized map support, we have tested CTT with WOMD, nuScenes, and nuPlan.
 
-
-## Generating config templates
-
-```
-python diffstack/scripts/generate_config_templates.py
-```
 
 ## Training and eval
 
