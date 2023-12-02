@@ -4,9 +4,7 @@ from diffstack.configs.base import AlgoConfig
 from diffstack.utils.utils import removeprefix
 
 from diffstack.modules.predictors.kinematic_predictor import KinematicTreeModel
-from diffstack.modules.predictors.tbsim_predictors import (
-    AgentFormerTrafficModel,
-)
+
 
 from diffstack.modules.predictors.CTT import CTTTrafficModel
 
@@ -35,14 +33,6 @@ def predictor_factory(
             model_registrar, config, logger, device, input_mappings=input_mappings
         )
 
-    elif algo_name in [
-        "agentformer_multistage",
-        "agentformer_singlestage",
-        "agentformer",
-    ]:
-        predictor = AgentFormerTrafficModel(
-            model_registrar, config, logger, device, input_mappings=input_mappings
-        )
     elif algo_name == "CTT":
         predictor = CTTTrafficModel(
             model_registrar, config, logger, device, input_mappings=input_mappings

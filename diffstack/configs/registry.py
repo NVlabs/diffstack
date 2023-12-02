@@ -6,21 +6,11 @@ from diffstack.configs.config import Dict
 from diffstack.configs.trajdata_config import TrajdataTrainConfig, TrajdataEnvConfig
 
 from diffstack.configs.algo_config import (
-    AgentFormerConfig,
     CTTConfig,
 )
 
 
 EXP_CONFIG_REGISTRY = dict()
-
-
-EXP_CONFIG_REGISTRY["AFPredStack"] = ExperimentConfig(
-    train_config=TrajdataTrainConfig(),
-    env_config=TrajdataEnvConfig(),
-    module_configs=Dict(predictor=AgentFormerConfig()),
-    registered_name="AFPredStack",
-    stack_type="pred",
-)
 
 
 EXP_CONFIG_REGISTRY["CTTPredStack"] = ExperimentConfig(

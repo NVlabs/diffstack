@@ -15,6 +15,8 @@ For trajdata, we need to use branch `vectorize`, there are two options:
 ```
 git clone --recurse-submodules --branch main git@github.com:NVlabs/trajdata.git;
 cd trajdata;
+git fetch origin
+git reset --hard 748b8b1
 git apply ../patches/trajdata_vectorize.patch
 cd ..
 ```
@@ -72,30 +74,6 @@ These additional steps might be necessary
 pip uninstall pathos -y
 pip install pathos==0.2.9
 
-# Gpu affinity for cpu-gpu assignments on NGC (optional)
-pip install git+https://gitlab-master.nvidia.com/dl/gwe/gpu_affinity
-
-# On Mac sometimes we need to reinstall torch
-conda install pytorch torchvision torchaudio -c pytorch
-
-# The default requirements installs jax for cpu only. To enable jax with GPU, see https://github.com/google/jax#installation
-
-# networkx package is not well aligned between py3.8 and py3.9, if you encounter an error for unknown module of gcd in fraction, manually modify that line of code for networkx. It should be located in the site-package/networkx/algorithms/dag.py:23
-# from fractions import gcd
-from math import gcd
-
-# The version of numpy might be messed by merging diffstack + mm3d, try restore numpy version for mm3d if the test script does not work after install diffstack requirements
-pip uninstall numpy
-pip install numpy==1.23.5
-
-# The version of bokeh might be messed if you see errors for 'module not found' when using nuplan, update bokeh version to bokeh==2.4.3
-pip install bokeh==2.4.3
-
-pip uninstall pygeos
-
-# To parse CARLA OpenDrive maps manually install extra trajdata dependencties (can be removed once trajdata is updated)
-pip install intervaltree bokeh==2.4.3 geopandas selenium
-pip install -e ./trajdata/src/trajdata/dataset_specific/opendrive/custom_imap
 
 # Fix opencv compatibility issue https://github.com/opencv/opencv-python/issues/591
 pip uninstall opencv-python opencv-python-headless -y
@@ -108,6 +86,21 @@ pip install matplotlib==3.3.4
 
 ```
 
+### Key files and code structure
+
+Diffstack uses a similar config system as [TBSIM](https://github.com/NVlabs/traffic-behavior-simulation), where the config templates are first defined in python inside the [diffstack/configs](/diffstack/configs/) folder. We separate the configs for [data](/diffstack/configs/trajdata_config.py), [training](/diffstack/configs/base.py), and [models](/diffstack/configs/algo_config.py).
+
+The training and evaluation process takes in a JSON file as config, and one can call the [generate_config_templates.py](/diffstack/scripts/generate_config_templates.py) to generate all the template JSON configs, stored in [config/templates](/config/templates/) folder, by taking the default values from the python config files.
+
+The models are separetely defined in the [models](/diffstack/models/) folder and [modules](/diffstack/modules/) folder where the former defines the model architecture, the latter wraps the torch model in a unified format called module, defined in [diffstack/modules/module.py](/diffstack/modules/module.py). 
+
+Modules can be chained together to form [stacks](/diffstack/stacks/), which can be trained/evalulated as a whole. For this codebase, we only include CTT, thus the only type of stack is a prediction stack. 
+
+A stack is wrapped as a Pytorch-lightning model for training and evaluation, see [train_pl.py](/diffstack/scripts/train_pl.py) for details.
+
+The main files of CTT to look for is the [model file](/diffstack/models/CTT.py), and the [module file](/diffstack/modules/predictors/CTT.py).
+
+We also included a rich collection of [utils functions](/diffstack/utils/), among which many are not used by CTT, but we believe they contribute to creating a convenient code base.
 
 ### Data
 
