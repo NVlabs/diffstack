@@ -8,4 +8,4 @@ ncls==0.0.57
 wandb
 imageio==2.9.0
 tqdm
-matplotlib
+matplotlib<=3.7
