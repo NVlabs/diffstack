@@ -73,7 +73,7 @@ python -m torch.distributed.run --nproc_per_node=1 ./diffstack/train.py \
 
 ### Reproducing published results
 
-To reporduce results you will need to download our preprocessed dataset ([nuScenes-minival](https://drive.google.com/drive/folders/1jhxNQMWCkVpdDUhAuvYZ2rihT67j77o0?usp=share_link), [nuScenes-full](https://drive.google.com/drive/folders/1xq7OJG5k796_SFsb6j6g7O2e5kc85z51?usp=share_link)) and optionally the pretrained models ([checkpoints](https://drive.google.com/drive/folders/18X4i_gsj72kBkpMGT6Psp3svaqR6yU8d?usp=sharing)). Please only use the dataset and models if you have agreed to the terms for non-commercial use on [https://www.nuscenes.org/nuscenes](https://www.nuscenes.org/nuscenes). The preprocessed dataset and pretrained models are under the [CC BY-NC-SA 4.0 licence](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode). 
+To reporduce results you will need to download our preprocessed dataset ([nuScenes-minival](https://drive.google.com/drive/folders/1GTEZdywSautvUbjY8eBzXEoT6VkII3E1?usp=sharing), [nuScenes-full](https://drive.google.com/drive/folders/1Ho2d6L57q4H9UHP53AyhD46zY-Vf2xxN?usp=sharing)) and optionally the pretrained models ([checkpoints](https://drive.google.com/drive/folders/1beTZwXqs0mb9Z1Sb346F2xHx9oeueoFm?usp=sharing)). Please only use the dataset and models if you have agreed to the terms for non-commercial use on [https://www.nuscenes.org/nuscenes](https://www.nuscenes.org/nuscenes). The preprocessed dataset and pretrained models are under the [CC BY-NC-SA 4.0 licence](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 
 Evaluate a pretrained DiffStack model with jointly trained prediction-planning-control modules on the nuscenes minival dataset. Remember to update the path to the downloaded data and models. Use the full validation set to reproduce results in the paper.
 
@@ -103,7 +103,7 @@ python ./diffstack/train.py \
                 --predictor=tpp_cache \
                 --dynamic_edges=yes \
                 --plan_cost=corl_default \
-                --plan_loss_scaler=100 
+                --plan_loss_scaler=100
 ```
 
 To use 1 gpu and distributed data parallel pipeline use:
@@ -134,7 +134,7 @@ python -m torch.distributed.run --nproc_per_node=1 ./diffstack/train.py \
                 --predictor=tpp_cache \
                 --dynamic_edges=yes \
                 --plan_cost=corl_default \
-                --plan_loss_scaler=0 
+                --plan_loss_scaler=0
                 --device=cuda:0
 ```
 
